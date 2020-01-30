@@ -1,0 +1,28 @@
+DROP TABLE castings;
+DROP TABLE stars;
+DROP TABLE movies;
+
+CREATE TABLE movies (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255),
+  genre VARCHAR(255)
+);
+
+CREATE TABLE stars (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(255),
+  last_name VARCHAR(255)
+);
+
+CREATE TABLE castings (
+  id SERIAL PRIMARY KEY,
+  movie_id INT REFERENCES movies(id) ON DELETE CASCADE,
+  star_id INT REFERENCES stars(id) ON DELETE CASCADE,
+  fee INT
+);
+
+SELECT * FROM stars
+INNER JOIN castings
+ON stars.id = castings.star_id
+INNER JOIN movies
+ON movies.id = castings.movie_id;
